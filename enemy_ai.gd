@@ -9,7 +9,7 @@ extends CharacterBody3D
 # We rename IDLE to WANDER to better describe the new behavior.
 enum State {CHASE, STRAFE, WANDER}
 
-@export var move_speed = 30
+@export var move_speed = 100
 # NEW: How far from the player the AI will wander.
 @export var wander_radius = 7.0
 

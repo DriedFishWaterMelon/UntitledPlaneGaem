@@ -50,3 +50,4 @@ wait_time = 2.0
 
 [node name="MuzzleFlash" parent="." instance=ExtResource("3_sl4vo")]
 transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, -0.829362, 1.074, -1.318)
+visible = false

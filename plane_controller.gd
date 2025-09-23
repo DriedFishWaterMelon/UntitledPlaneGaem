@@ -1,9 +1,9 @@
 extends CharacterBody3D
 
 
-@export var MAX_SPEED := 80
-@export var BASE_SPEED := 20
-@export var MIN_SPEED := 10
+@export var MAX_SPEED := 200
+@export var BASE_SPEED := 80
+@export var MIN_SPEED := 30
 @export var acceleration := 15.5
 @export var deacceleration := 15.5
 @export var current_speed := 50.0
@@ -20,6 +20,10 @@ var max_fov = 130
 var min_fov = 70
 var fov_accel = 30
 var fov = 0
+var is_reloading = false
+var reload_time = 2.0
+var rack_gun_ammo = 40
+signal reloadsignal
 @onready var camera = $Camera3D
 @onready var bullet_scene = preload("res://bullet.tscn")
 @onready var missile_scene = preload("res://missile.tscn")
@@ -30,12 +34,12 @@ var activate_weapon = "gun"
 
 var weapon = {
 	"gun": 511,
-	"missile": 48,
+	"missile": 12,
 }
 
 var turn_input = Vector2()
-var gun_ammo = 511
-var missile = 48
+#var gun_ammo = 511
+#var missile = 48
 func _ready() -> void:
 	fire_cooldown_timer.wait_time = 60.0 / fire_rate_rpm
 	missile_cooldown.wait_time = 2
@@ -48,6 +52,8 @@ func _ready() -> void:
 	
 	if ui:
 		ui.analog_input.connect(_on_control_analog_input)
+		
+	get_node("../ui").done_reload.connect(_on_finish_reloaded)
 	
 	
 	
@@ -114,7 +120,7 @@ func _physics_process(delta: float) -> void:
 	velocity = -basis.z * current_speed
 	move_and_slide()
 	
-	get_node("../ui/Control/speed").text = str(int(current_speed*10))
+	get_node("../ui/Control/speed").text = "Speed: " + str(int(current_speed*10))
 	
 	var turn_dir = Vector3(-turn_input.y,-turn_input.x,-roll)
 	apply_rotation(turn_dir,delta)
@@ -147,6 +153,24 @@ func _on_control_analog_input(analog: Vector2) -> void:
 	
 	turn_input = analog
 	
+func _on_finish_reloaded():
+	is_reloading = false
+	if weapon.gun >= 40 - rack_gun_ammo:
+		weapon.gun -= 40 - rack_gun_ammo
+		rack_gun_ammo += 40 - rack_gun_ammo
+		
+		
+	elif weapon.gun < 40 - rack_gun_ammo:
+		rack_gun_ammo += weapon.gun
+		weapon.gun = 0
+		
+	get_node("../ui/Control/Gun").text = "M61A1 Vulcan" +"
+	" + "Round: " + str(int(rack_gun_ammo)) + "/" + str(int(weapon.gun))
+
+func _reload_the_gun():
+	is_reloading = true
+	reloadsignal.emit()
+	
 func update_fov(value):
 	if camera.fov <= 2 && camera.fov <= 178:
 		camera.fov = value
@@ -154,6 +178,11 @@ func get_fov():
 	return camera.fov
 
 func _input(event: InputEvent) -> void:
+	
+	if Input.is_action_just_pressed("reload"):
+		if activate_weapon == "gun" && rack_gun_ammo < 40:
+			
+			_reload_the_gun()
 	
 	if event.is_action_pressed("left_mouse") && activate_weapon == "missile":
 		weapon_fire()
@@ -171,10 +200,10 @@ func _input(event: InputEvent) -> void:
 			activate_weapon = "gun"
 
 			get_node("../ui/Control/Gun").text = "M61A1 Vulcan" +"
-	" + "Round: " + str(int(weapon.gun))
+	" + "Round: " + str(int(rack_gun_ammo)) + "/" + str(int(weapon.gun))
 			print(activate_weapon)
 func weapon_fire():
-	if activate_weapon == "gun" && fire_cooldown_timer.is_stopped() && weapon.gun > 0:
+	if activate_weapon == "gun" && fire_cooldown_timer.is_stopped() && rack_gun_ammo > 0:
 		fire_cooldown_timer.start()
 		var spread_amount: float = 0.02
 		var new_bullet = bullet_scene.instantiate()
@@ -210,9 +239,9 @@ func weapon_fire():
 		
 		
 		# Decrease ammo count
-		weapon.gun -= 1
+		rack_gun_ammo -= 1
 		get_node("../ui/Control/Gun").text = "M61A1 Vulcan" +"
-	" + "Round: " + str(int(weapon.gun))
+	" + "Round: " + str(int(rack_gun_ammo)) + "/" + str(int(weapon.gun))
 		$MuzzleFlash.visible = true
 	
 	if activate_weapon == "missile" && weapon.missile >0:
