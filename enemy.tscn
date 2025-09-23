@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://bi2h78j7thclg"]
+
+[ext_resource type="Script" uid="uid://ccc51ka1vvg4u" path="res://enemy_ai.gd" id="1_4gyqm"]
+[ext_resource type="PackedScene" uid="uid://c5jf4oova0pag" path="res://assets/models/Jet.glb" id="1_7k104"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4gyqm"]
+size = Vector3(11.4307, 10.3632, 1.21387)
+
+[node name="Enemy" type="CharacterBody3D" groups=["enemies"]]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+collision_layer = 3
+collision_mask = 3
+motion_mode = 1
+script = ExtResource("1_4gyqm")
+
+[node name="Jet" parent="." instance=ExtResource("1_7k104")]
+transform = Transform3D(-0.994762, 0, -0.10222, 0, 1, 0, 0.10222, 0, -0.994762, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.0071732, 0.999974, 0, -0.999974, 0.0071732, 0.409668, -0.062498, -0.612923)
+shape = SubResource("BoxShape3D_4gyqm")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier3D" to="." method="_on_visible_on_screen_notifier_3d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier3D" to="." method="_on_visible_on_screen_notifier_3d_screen_exited"]

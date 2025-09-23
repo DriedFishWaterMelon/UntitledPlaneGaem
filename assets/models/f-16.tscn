@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://b7eo8py5gqvdn"]
+
+[ext_resource type="PackedScene" uid="uid://cvr8ukw2t1b5w" path="res://assets/models/f-16_fighting_falcon_-_fighter_jet_-_free.glb" id="1_ka8dn"]
+
+[node name="Sketchfab_Scene" instance=ExtResource("1_ka8dn")]
+
+[node name="F-16-landingOn_6" parent="Sketchfab_model/root/GLTF_SceneRootNode" index="6"]
+visible = false
+
+[node name="F-16-landingOnLight_7" parent="Sketchfab_model/root/GLTF_SceneRootNode" index="7"]
+visible = false

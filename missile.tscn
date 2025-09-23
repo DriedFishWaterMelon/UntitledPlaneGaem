@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://y01wp7i8dxss"]
+
+[ext_resource type="Script" uid="uid://bod1o5cfjmwad" path="res://missile.gd" id="1_cdnlh"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_0uoyr"]
+top_radius = 0.2
+bottom_radius = 0.2
+height = 5.515
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bqn2q"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_jvt27"]
+
+[node name="missile" type="CharacterBody3D"]
+script = ExtResource("1_cdnlh")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.00412916, -0.199957, 0, 0.199957, 0.00412916, 0, 0, 0)
+mesh = SubResource("CylinderMesh_0uoyr")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+shape = SubResource("BoxShape3D_bqn2q")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.0417885, -0.999126, 0, 0.999126, 0.0417885, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_jvt27")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

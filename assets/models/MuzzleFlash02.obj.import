@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bldgx50vprmo6"
+path="res://.godot/imported/MuzzleFlash02.obj-e92be9c3791671e2429becc9903ec8ab.mesh"
+
+[deps]
+
+files=["res://.godot/imported/MuzzleFlash02.obj-e92be9c3791671e2429becc9903ec8ab.mesh"]
+
+source_file="res://assets/models/MuzzleFlash02.obj"
+dest_files=["res://.godot/imported/MuzzleFlash02.obj-e92be9c3791671e2429becc9903ec8ab.mesh", "res://.godot/imported/MuzzleFlash02.obj-e92be9c3791671e2429becc9903ec8ab.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false
