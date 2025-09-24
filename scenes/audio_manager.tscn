@@ -1,0 +1,22 @@
+[gd_scene load_steps=6 format=3 uid="uid://c715a0gkvkqk7"]
+
+[ext_resource type="Script" uid="uid://bavjrmy7638bd" path="res://scenes/audio_manager.gd" id="1_aoitu"]
+[ext_resource type="AudioStream" uid="uid://cx8x8qa73mv0q" path="res://sfx/vulcan.wav" id="1_m6ggh"]
+[ext_resource type="AudioStream" uid="uid://bkgls1cddcw43" path="res://sfx/Voicy_Pilot Killed Indicator SFX.wav" id="2_aoitu"]
+[ext_resource type="AudioStream" uid="uid://bv2svqm1mlvxj" path="res://sfx/Voicy_Human Shield Break SFX.wav" id="3_njtn3"]
+[ext_resource type="AudioStream" uid="uid://cxwvjtx82ewf7" path="res://sfx/Voicy_Shield Battery SFX.wav" id="4_kq7b2"]
+
+[node name="AudioManager" type="Node2D"]
+script = ExtResource("1_aoitu")
+
+[node name="Vulcan" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_m6ggh")
+
+[node name="Kill" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_aoitu")
+
+[node name="Hit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_njtn3")
+
+[node name="Recharge" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_kq7b2")

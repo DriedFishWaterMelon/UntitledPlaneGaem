@@ -1,0 +1,58 @@
+[gd_scene load_steps=6 format=3 uid="uid://cpwo3r6jmu520"]
+
+[ext_resource type="Script" uid="uid://b1tr1oubo5xa7" path="res://scripts/plane_controller.gd" id="1_sl4vo"]
+[ext_resource type="PackedScene" uid="uid://b7eo8py5gqvdn" path="res://assets/models/f-16.tscn" id="2_sl4vo"]
+[ext_resource type="PackedScene" uid="uid://ckc7tj6yrkqa0" path="res://scenes/muzzle_flash.tscn" id="3_sl4vo"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_sl4vo"]
+height = 13.091201
+radius = 5.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6vrlm"]
+size = Vector3(1.33472, 1, 1)
+
+[node name="CharacterBody3D" type="CharacterBody3D" groups=["Player", "player"]]
+motion_mode = 1
+script = ExtResource("1_sl4vo")
+
+[node name="Jet" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.83376, 0.898134)
+
+[node name="Sketchfab_Scene" parent="Jet" instance=ExtResource("2_sl4vo")]
+transform = Transform3D(1.19249e-09, 0, -0.1, 0, 0.1, 0, 0.1, 0, 1.19249e-09, 2.27819e-07, 0, -2.60594)
+
+[node name="HitRegister" type="CollisionShape3D" parent="." groups=["Player"]]
+transform = Transform3D(-1, -8.74185e-08, 8.63597e-10, 0, -0.0098784, -0.999951, 8.74228e-08, -0.999951, 0.0098784, 1.2513524e-07, -0.044741463, 1.9452293)
+shape = SubResource("CylinderShape3D_sl4vo")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.655555, 1.02782, -1.27085)
+shape = SubResource("BoxShape3D_6vrlm")
+
+[node name="gun_timer" type="Timer" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.99988, -0.00559704, -0.0144138, 0.0074539, 0.991198, 0.132182, 0.0135471, -0.132274, 0.991121, 0, 5.26285, 8.12091)
+fov = 90.0
+
+[node name="Camera3D2" type="Camera3D" parent="."]
+transform = Transform3D(0.99988, -0.00559704, -0.0144138, 0.0074539, 0.991198, 0.132182, 0.0135471, -0.132274, 0.991121, 0, 5.26285, 8.12091)
+fov = 90.0
+
+[node name="MuzzlePoint" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.729416, 1.0737, -1.31827)
+
+[node name="MuzzlePoint2" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.66998, -0.130846, 3.20889)
+
+[node name="missile" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="MuzzleFlash" parent="." instance=ExtResource("3_sl4vo")]
+transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, -0.829362, 1.074, -1.318)
+visible = false
+
+[node name="RechargeTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[connection signal="timeout" from="RechargeTimer" to="." method="_on_recharge_timer_timeout"]

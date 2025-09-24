@@ -1,0 +1,39 @@
+extends Area3D
+
+@onready var speed = 1000
+var direction
+var is_from_player = true
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+	
+func _physics_process(delta: float) -> void:
+	position += direction * speed * delta
+	
+	
+
+func _on_timer_timeout() -> void:
+	queue_free()
+
+
+func _on_body_entered(body: Node3D) -> void:
+	pass
+
+
+func _on_body_shape_entered(body_rid: RID, body: Node3D, body_shape_index: int, local_shape_index: int) -> void:
+	var shape_owner = body.shape_owner_get_owner(body_shape_index)
+	print("the body is" , body)
+	if body.is_in_group("enemies") && is_from_player && shape_owner.name == "HitRegister":
+		AudioManager.hit.play()
+		body.take_damage(5)
+		queue_free()
+	if body.is_in_group("Player")  && !is_from_player:
+		body.take_damage(20)
+		AudioManager.hit.play()
+		queue_free()
