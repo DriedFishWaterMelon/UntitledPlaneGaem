@@ -46,7 +46,7 @@ var energy_drain = 20
 var energy_regen = 17
 
 var weapon = {
-	"gun": 511,
+	"gun": 1250,
 	"missile": 12,
 }
 
@@ -292,6 +292,7 @@ func weapon_fire():
 		var new_missile = missile_scene.instantiate()
 		get_tree().current_scene.add_child(new_missile)
 		new_missile.is_player_missile = true
+		new_missile.add_initial_speed(current_speed * 10)
 		new_missile.target = target
 		print(new_missile)
 		new_missile.global_transform = $MuzzlePoint2.global_transform

@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://bi2h78j7thclg"]
 
 [ext_resource type="Script" uid="uid://ccc51ka1vvg4u" path="res://scripts/enemy_ai.gd" id="1_4gyqm"]
-[ext_resource type="PackedScene" uid="uid://c5jf4oova0pag" path="res://assets/models/Jet.glb" id="1_7k104"]
+[ext_resource type="PackedScene" uid="uid://dku5lvh01nfyf" path="res://assets/Fighter/russian_military_vehicles_-_sukhoi_su-35.glb" id="2_md0e3"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4gyqm"]
-size = Vector3(15, 15, 15)
+size = Vector3(15, 24.722046, 15.605469)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4ra3w"]
 radius = 25.0
@@ -21,15 +21,15 @@ collision_mask = 3
 motion_mode = 1
 script = ExtResource("1_4gyqm")
 
-[node name="Jet" parent="." instance=ExtResource("1_7k104")]
-transform = Transform3D(-0.994762, 0, -0.10222, 0, 1, 0, 0.10222, 0, -0.994762, 0, 0, 0)
+[node name="Jet" parent="." instance=ExtResource("2_md0e3")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.40256098, 0, -2.371787)
 
 [node name="HitRegister" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.0071731945, 0.99997425, 0, -0.99997425, 0.0071731945, 0.409668, -0.062498, -0.612923)
+transform = Transform3D(1, 0, 0, 0, 0.0071731945, 0.99997425, 0, -0.99997425, 0.0071731945, 0.409668, -0.35868752, -1.526387)
 shape = SubResource("BoxShape3D_4gyqm")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 10.0
 autostart = true
 
 [node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="."]

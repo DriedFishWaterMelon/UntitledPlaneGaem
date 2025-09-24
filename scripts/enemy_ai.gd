@@ -16,7 +16,7 @@ var fire_rate_rpm = 6000
 # We rename IDLE to WANDER to better describe the new behavior.
 enum State {CHASE, STRAFE, WANDER}
 
-@export var move_speed = 120
+@export var move_speed = 110
 # NEW: How far from the player the AI will wander.
 @export var wander_radius = 7.0
 
@@ -44,6 +44,7 @@ func _physics_process(delta):
 		
 		fire_missile(target)
 	if gun_player_detection && gun_cooldown_timer.is_stopped():
+		
 		fire_gun()
 	
 	
@@ -160,6 +161,7 @@ func fire_missile(target):
 	get_tree().current_scene.add_child(new_missile)
 	new_missile.is_player_missile = false
 	new_missile.target = target
+	new_missile.add_initial_speed(move_speed * 10)
 	print("enemy_missile_fire")
 	new_missile.global_transform = $MuzzlePoint.global_transform
 		

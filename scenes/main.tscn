@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://clndcuwwqpm2i"]
+[gd_scene load_steps=13 format=3 uid="uid://clndcuwwqpm2i"]
 
 [ext_resource type="Script" uid="uid://bnbefe2k1p07j" path="res://scripts/main.gd" id="1_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://cpwo3r6jmu520" path="res://scenes/Plane.tscn" id="1_ig7tw"]
@@ -13,6 +13,13 @@ albedo_texture = ExtResource("3_tbgi4")
 [sub_resource type="PlaneMesh" id="PlaneMesh_tbgi4"]
 size = Vector2(50000, 50000)
 
+[sub_resource type="Gradient" id="Gradient_tbgi4"]
+offsets = PackedFloat32Array(0.0021276595, 1)
+colors = PackedColorArray(0.3113789, 0.37187055, 1, 0.71300006, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_tefeu"]
+gradient = SubResource("Gradient_tbgi4")
+
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ig7tw"]
 ground_bottom_color = Color(0.3053, 0.35925993, 0.71, 1)
 
@@ -25,6 +32,7 @@ sky = SubResource("Sky_0xm2m")
 ambient_light_source = 3
 reflected_light_source = 2
 tonemap_mode = 1
+tonemap_exposure = 0.9
 tonemap_white = 0.31
 ssr_enabled = true
 ssao_enabled = true
@@ -32,6 +40,11 @@ ssil_enabled = true
 sdfgi_enabled = true
 glow_enabled = true
 volumetric_fog_enabled = true
+adjustment_enabled = true
+adjustment_brightness = 1.2
+adjustment_contrast = 2.0
+adjustment_saturation = 0.74
+adjustment_color_correction = SubResource("GradientTexture1D_tefeu")
 
 [node name="main" type="Node3D"]
 script = ExtResource("1_1bvp3")

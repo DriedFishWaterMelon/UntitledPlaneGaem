@@ -34,7 +34,7 @@ text = "Control
 move > mouse
 left click > fire weapon
 C > change weapon
-T > look behind
+Tab > look behind
 R > reload
 Esc > cancel mouse lock control
 K > enter mouse lock control

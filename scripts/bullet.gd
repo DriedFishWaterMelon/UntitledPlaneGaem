@@ -37,7 +37,7 @@ func _on_body_shape_entered(body_rid: RID, body: Node3D, body_shape_index: int, 
 			AudioManager.hit.play()
 			
 		if body:
-			body.take_damage(5)
+			body.take_damage(10)
 		queue_free()
 	if body.is_in_group("Player")  && !is_from_player:
 		body.take_damage(20)

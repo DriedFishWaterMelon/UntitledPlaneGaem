@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://b6rpdgsgol5u7"]
+
+[ext_resource type="Script" uid="uid://dk5rfbkktrjm4" path="res://node_3d.gd" id="1_12pko"]
+[ext_resource type="Texture2D" uid="uid://bs3xuxpu45y0m" path="res://addons/kenney_particle_pack/flare_01.png" id="2_en6j2"]
+[ext_resource type="PackedScene" uid="uid://c6wtxqiq6lvjv" path="res://scenes/smoke.tscn" id="3_u73uw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_us5j8"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+depth_draw_mode = 2
+shading_mode = 0
+diffuse_mode = 3
+albedo_color = Color(1, 0.6373334, 0.32, 1)
+albedo_texture = ExtResource("2_en6j2")
+refraction_enabled = true
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wjfkj"]
+direction = Vector3(-10, 0, 0)
+initial_velocity_min = 1.0
+initial_velocity_max = 5.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_6pbbh"]
+size = Vector2(50, 50)
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_12pko")
+
+[node name="FlareParticle" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_us5j8")
+amount = 1
+lifetime = 5.0
+process_material = SubResource("ParticleProcessMaterial_wjfkj")
+draw_pass_1 = SubResource("QuadMesh_6pbbh")
+
+[node name="Node3D" parent="FlareParticle" instance=ExtResource("3_u73uw")]
