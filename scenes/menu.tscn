@@ -41,6 +41,8 @@ K > enter mouse lock control
 middle mouse > missileLock On
 Q , E > Roll left,right
 W,S > Pitch up , Pitch down
+space > acceleration
+shife > deacceleration (the lower speed, the faster turn radius)
 
 
 it supposed to mouse move movement for input but it some how doesnt works on github. i gave up"
