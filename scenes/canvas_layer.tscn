@@ -15,7 +15,6 @@ color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_ek3oe"]
 color = Color(1, 1, 1, 1)
-thickness = 5
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_kfwc7"]
 color = Color(0, 0, 0, 0)
@@ -93,28 +92,33 @@ offset_bottom = 40.0
 script = ExtResource("2_37rai")
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 10.0
-offset_top = -81.0
-offset_right = 256.0
-offset_bottom = -54.0
-grow_vertical = 0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -129.0
+offset_top = -152.0
+offset_right = 117.0
+offset_bottom = -125.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_37rai")
 theme_override_styles/fill = SubResource("StyleBoxLine_0qrqu")
 show_percentage = false
 
 [node name="Reloading" type="Label" parent="."]
-visible = false
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 92.0
-offset_top = -81.0
-offset_right = 169.0
-offset_bottom = -58.0
-grow_vertical = 0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -47.0
+offset_top = -153.0
+offset_right = 30.0
+offset_bottom = -130.0
+grow_horizontal = 2
+grow_vertical = 2
 text = "Reloading"
 
 [node name="HealthBar" type="ProgressBar" parent="."]
@@ -162,6 +166,10 @@ show_percentage = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -384.0
+offset_top = -216.0
+offset_right = 384.0
+offset_bottom = 216.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("4_mg525")
@@ -170,6 +178,10 @@ texture = ExtResource("4_mg525")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -384.0
+offset_top = -216.0
+offset_right = 384.0
+offset_bottom = 216.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("4_mg525")
@@ -178,6 +190,10 @@ texture = ExtResource("4_mg525")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -384.0
+offset_top = -216.0
+offset_right = 384.0
+offset_bottom = 216.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("4_mg525")
