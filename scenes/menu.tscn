@@ -40,6 +40,9 @@ Esc > cancel mouse lock control
 K > enter mouse lock control
 middle mouse > missileLock On
 Q , E > Roll left,right
-W,S > Pitch up , Pitch down"
+W,S > Pitch up , Pitch down
+
+
+it supposed to mouse move movement for input but it some how doesnt works on github. i gave up"
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
