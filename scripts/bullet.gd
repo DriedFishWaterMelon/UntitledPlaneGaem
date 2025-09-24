@@ -28,7 +28,7 @@ func _on_body_entered(body: Node3D) -> void:
 
 func _on_body_shape_entered(body_rid: RID, body: Node3D, body_shape_index: int, local_shape_index: int) -> void:
 	var shape_owner = body.shape_owner_get_owner(body_shape_index)
-	print("the body is" , body)
+	
 	if body.is_in_group("enemies") && is_from_player && shape_owner.name == "HitRegister":
 		AudioManager.hit.play()
 		body.take_damage(5)
