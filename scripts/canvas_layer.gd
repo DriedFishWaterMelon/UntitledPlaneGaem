@@ -5,6 +5,8 @@ var reloadtime
 signal done_reload
 @onready var HealthBar = $HealthBar
 @onready var ShieldBar = $ShieldBar
+@onready var EnergyBar = $Energy
+
 
 
 # Called when the node enters the scene tree for the first time.
@@ -26,6 +28,11 @@ func _process(delta: float) -> void:
 		
 	HealthBar.value = get_node("../Player").health
 	ShieldBar.value = get_node("../Player").shield
+	EnergyBar.value = get_node("../Player").current_energy
+	
+	
+	
+
 
 
 func Reloading_bar():

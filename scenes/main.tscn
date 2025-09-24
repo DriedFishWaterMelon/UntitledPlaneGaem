@@ -1,13 +1,20 @@
-[gd_scene load_steps=9 format=3 uid="uid://clndcuwwqpm2i"]
+[gd_scene load_steps=11 format=3 uid="uid://clndcuwwqpm2i"]
 
 [ext_resource type="Script" uid="uid://bnbefe2k1p07j" path="res://scripts/main.gd" id="1_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://cpwo3r6jmu520" path="res://scenes/Plane.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://bi2h78j7thclg" path="res://scenes/enemy.tscn" id="2_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://uu7dtcb1a578" path="res://scenes/canvas_layer.tscn" id="3_h2yge"]
+[ext_resource type="Texture2D" uid="uid://cdqfm3j1f74vh" path="res://assets/image/photo-1476897017502-219c9169bd6f.jpg" id="3_tbgi4"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_ig7tw"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jyhfs"]
+albedo_color = Color(0.28183427, 0.32351387, 0.47420186, 1)
+albedo_texture = ExtResource("3_tbgi4")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_tbgi4"]
+size = Vector2(50000, 50000)
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ig7tw"]
+ground_bottom_color = Color(0.3053, 0.35925993, 0.71, 1)
 
 [sub_resource type="Sky" id="Sky_0xm2m"]
 sky_material = SubResource("ProceduralSkyMaterial_ig7tw")
@@ -15,15 +22,27 @@ sky_material = SubResource("ProceduralSkyMaterial_ig7tw")
 [sub_resource type="Environment" id="Environment_h2yge"]
 background_mode = 2
 sky = SubResource("Sky_0xm2m")
+ambient_light_source = 3
+reflected_light_source = 2
+tonemap_mode = 1
+tonemap_white = 0.31
+ssr_enabled = true
+ssao_enabled = true
+ssil_enabled = true
+sdfgi_enabled = true
+glow_enabled = true
+volumetric_fog_enabled = true
 
 [node name="main" type="Node3D"]
 script = ExtResource("1_1bvp3")
 
 [node name="Player" parent="." instance=ExtResource("1_ig7tw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 127.686386, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.26248, -25.6553)
-mesh = SubResource("CapsuleMesh_ig7tw")
+visible = false
+material_override = SubResource("StandardMaterial3D_jyhfs")
+mesh = SubResource("PlaneMesh_tbgi4")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_h2yge")

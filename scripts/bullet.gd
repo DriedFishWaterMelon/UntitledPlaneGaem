@@ -30,10 +30,21 @@ func _on_body_shape_entered(body_rid: RID, body: Node3D, body_shape_index: int, 
 	var shape_owner = body.shape_owner_get_owner(body_shape_index)
 	
 	if body.is_in_group("enemies") && is_from_player && shape_owner.name == "HitRegister":
-		AudioManager.hit.play()
-		body.take_damage(5)
+		if AudioManager.hit.is_playing():
+			await get_tree().create_timer(1).timeout
+			AudioManager.hit.play()
+		else:
+			AudioManager.hit.play()
+			
+		if body:
+			body.take_damage(5)
 		queue_free()
 	if body.is_in_group("Player")  && !is_from_player:
 		body.take_damage(20)
-		AudioManager.hit.play()
+		if AudioManager.hit.is_playing():
+			print("playing")
+			await get_tree().create_timer(2).timeout
+			AudioManager.hit.play()
+		else:
+			AudioManager.hit.play()
 		queue_free()

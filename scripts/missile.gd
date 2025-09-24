@@ -3,12 +3,12 @@ extends CharacterBody3D
 
 var is_player_missile = true
 @export var target:Node3D
-@export var speed = 3000
+@export var speed = 2500
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	$Timer.start()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -20,6 +20,15 @@ func _physics_process(delta: float) -> void:
 	if target:
 		var direction = (target.position - global_position).normalized()
 		velocity = direction * speed * delta
+		$Node3D.set_direction(direction)
+		look_at(direction)
+		move_and_slide()
+	else:
+		var direction
+		if velocity.length_squared() > 0:
+			direction = velocity.normalized()
+		velocity = direction * speed * delta
+		$Node3D.set_direction(direction)
 		look_at(direction)
 		move_and_slide()
 
@@ -29,7 +38,8 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 
 
 func _on_timer_timeout() -> void:
-	queue_free()
+	
+	target = null
 
 
 func _on_area_3d_body_shape_entered(body_rid: RID, body: Node3D, body_shape_index: int, local_shape_index: int) -> void:

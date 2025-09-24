@@ -1,0 +1,38 @@
+[gd_scene load_steps=8 format=3 uid="uid://c6wtxqiq6lvjv"]
+
+[ext_resource type="Script" uid="uid://soxkapwpujno" path="res://scenes/smoke.gd" id="1_by7rd"]
+[ext_resource type="Shader" uid="uid://djjnagxjo0i16" path="res://shaders/smokeShader.tres" id="1_y4cvb"]
+[ext_resource type="ArrayMesh" uid="uid://dexphg3xd6w4v" path="res://assets/models/sm_cloud.obj" id="3_rms5f"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n3n76"]
+render_priority = 0
+shader = ExtResource("1_y4cvb")
+
+[sub_resource type="Curve" id="Curve_jmh0c"]
+_data = [Vector2(0, 0.42696637), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_vr43f"]
+curve = SubResource("Curve_jmh0c")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_d7gxv"]
+particle_flag_rotate_y = true
+angle_min = -179.99998
+angle_max = 180.00002
+direction = Vector3(0, 0, 10)
+spread = 0.0
+initial_velocity_min = 100.0
+initial_velocity_max = 500.0
+gravity = Vector3(0, 0, 0)
+scale_max = 5.0
+scale_curve = SubResource("CurveTexture_vr43f")
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_by7rd")
+
+[node name="VFX_Stylized_Smoke" type="GPUParticles3D" parent="."]
+material_override = SubResource("ShaderMaterial_n3n76")
+amount = 100
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_d7gxv")
+draw_pass_1 = ExtResource("3_rms5f")

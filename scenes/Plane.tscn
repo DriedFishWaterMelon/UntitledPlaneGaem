@@ -53,6 +53,10 @@ transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, -0.829
 visible = false
 
 [node name="RechargeTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 7.0
+
+[node name="EnergyTimer" type="Timer" parent="."]
+one_shot = true
 
 [connection signal="timeout" from="RechargeTimer" to="." method="_on_recharge_timer_timeout"]
+[connection signal="timeout" from="EnergyTimer" to="." method="_on_energy_timer_timeout"]

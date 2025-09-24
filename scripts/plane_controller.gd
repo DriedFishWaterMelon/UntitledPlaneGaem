@@ -20,7 +20,7 @@ var health = 3000
 var max_health = 3000
 var shield = 3000
 var max_shield = 3000
-var shield_Recharge = 20
+var shield_Recharge = 200
 @onready var recharge_timer = $RechargeTimer
 var is_taking_dmg
 var base_fov = 90
@@ -37,8 +37,13 @@ signal reloadsignal
 @onready var missile_scene = preload("res://scenes/missile.tscn")
 @onready var ui_canvas = get_node("../ui")
 @onready var plane_mesh = $Jet
-
+var is_accel = false
+var de_accel = false
 var activate_weapon = "gun"
+var max_energy = 100
+var current_energy = 100
+var energy_drain = 20
+var energy_regen = 17
 
 var weapon = {
 	"gun": 511,
@@ -62,6 +67,7 @@ func _ready() -> void:
 		ui.analog_input.connect(_on_control_analog_input)
 		
 	get_node("../ui").done_reload.connect(_on_finish_reloaded)
+	AudioManager.idle_fly.play()
 	
 	
 	
@@ -78,12 +84,17 @@ func _physics_process(delta: float) -> void:
 	
 	if !is_taking_dmg:
 		if shield < 3000:
-			shield += shield_Recharge
+			shield += shield_Recharge * delta
 			AudioManager.recharge.play()
 		if shield > 3000:
 			shield = 3000
 	
-
+	
+	if $EnergyTimer.is_stopped() && !Input.is_action_pressed("accel"):
+		if current_energy < max_energy:
+			current_energy += energy_regen * delta
+			if current_energy > max_energy:
+				current_energy = max_energy
 	
 	if Input.is_action_just_pressed("look_behind"):
 		$Camera3D.rotation_degrees = Vector3(-7.6, 180, 0.4)
@@ -97,7 +108,7 @@ func _physics_process(delta: float) -> void:
 	elif Input.is_action_just_released("right_mouse"):
 		$Camera3D.fov = initial_pov
 	
-	if Input.is_action_pressed("left_mouse") && activate_weapon == "gun":
+	if Input.is_action_pressed("left_mouse") && activate_weapon == "gun" && rack_gun_ammo > 0:
 		weapon_fire()
 		AudioManager.vulcan.play()
 		
@@ -109,18 +120,24 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed("up"):
 		rotate(basis.x,-pitch_speed * delta)
 	if Input.is_action_pressed("down"):
-		rotate(basis.x,pitch_speed * delta)
-		
+		if current_speed < BASE_SPEED:
+			var newpitch = pitch_speed + clamp(36000/current_speed * 1/1000,0,5) 
+			rotate(basis.x,newpitch * delta)
+		else:
+			rotate(basis.x,pitch_speed * delta)
 	var roll =Input.get_axis("roll_left","roll_right")
 	
 	
 	
 	# Player wants to accelerate
-	if Input.is_action_pressed("accel"):
+	if Input.is_action_pressed("accel") && current_energy > 0:
 		
 		$Camera3D.fov = lerp($Camera3D.fov,130.0,5 * delta)
 		
 		current_speed = move_toward(current_speed, MAX_SPEED, acceleration * delta)
+		
+		if current_energy <= max_energy:
+			current_energy -= energy_drain * delta
 		
 		
 
@@ -201,6 +218,19 @@ func get_fov():
 
 func _input(event: InputEvent) -> void:
 	
+	
+	if Input.is_action_just_pressed("accel") && current_energy > 0:
+		AudioManager.accel.play()
+	elif  Input.is_action_just_released("accel"):
+		AudioManager.accel.stop()
+		$EnergyTimer.start
+		print("start Timer")
+	
+	if Input.is_action_just_pressed("deaccel"):
+		AudioManager.deaccel_wind.play()
+	elif  Input.is_action_just_released("deaccel"):
+		AudioManager.deaccel_wind.stop()
+	
 	if Input.is_action_just_pressed("reload"):
 		if activate_weapon == "gun" && rack_gun_ammo < 40:
 			
@@ -233,39 +263,27 @@ func weapon_fire():
 		get_tree().current_scene.add_child(new_bullet)
 		var fire_direction = -muzzle_point.global_transform.basis.z
 	
-		# --- Start of Bullet Spread Logic ---
 		
-		# 1. Create a random offset vector
-		# This creates a random direction in a 2D circle (on the X and Y axes)
-		# and then we use that to slightly alter the firing direction.
 		var spread = Vector3(
 			randf_range(-spread_amount, spread_amount),
 			randf_range(-spread_amount, spread_amount),
 			0
 		)
 		
-		# 2. Apply the random offset to the fire direction
-		# We use 'rotated' to apply the random offset relative to the original direction.
-		# We then normalize it to make sure the bullet speed remains constant.
+		
 		var spread_direction = fire_direction.rotated(Vector3.UP, spread.x).rotated(Vector3.RIGHT, spread.y).normalized()
 		
-		# --- End of Bullet Spread Logic ---
-
-		# Instantiate the new bullet
 		
-		
-		# Set the bullet's starting position and new direction
 		new_bullet.global_transform = $CollisionShape3D2.global_transform
-		new_bullet.direction = spread_direction # Use the new direction with spread
-		
-		# Add the bullet to the scene
-		
-		
-		# Decrease ammo count
+		new_bullet.direction = spread_direction 
+	
 		rack_gun_ammo -= 1
 		get_node("../ui/Control/Gun").text = "M61A1 Vulcan" +"
 	" + "Round: " + str(int(rack_gun_ammo)) + "/" + str(int(weapon.gun))
 		$MuzzleFlash.visible = true
+	else:
+		$MuzzleFlash.visible = false
+		AudioManager.vulcan.stop()
 	
 	if activate_weapon == "missile" && weapon.missile >0:
 		print("missile")
@@ -294,3 +312,7 @@ func take_damage(value):
 
 func _on_recharge_timer_timeout() -> void:
 	is_taking_dmg = false
+
+
+func _on_energy_timer_timeout() -> void:
+	print("timer end")

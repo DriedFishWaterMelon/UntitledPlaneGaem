@@ -1,0 +1,39 @@
+[gd_resource type="VisualShader" load_steps=5 format=3 uid="uid://djjnagxjo0i16"]
+
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_54isg"]
+parameter_name = "Texture2DParameter"
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_j5mm3"]
+expanded_output_ports = [0]
+source = 5
+
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_xn62a"]
+parameter_name = "Disolver_Texture"
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_273ei"]
+expanded_output_ports = [0]
+source = 5
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_premul_alpha, depth_draw_opaque, depth_test_default, cull_disabled, diffuse_toon, specular_toon;
+
+
+
+"
+modes/blend = 4
+modes/cull = 2
+modes/diffuse = 3
+modes/specular = 1
+nodes/vertex/2/node = SubResource("VisualShaderNodeTexture2DParameter_xn62a")
+nodes/vertex/2/position = Vector2(-320, 240)
+nodes/vertex/3/node = SubResource("VisualShaderNodeTexture_273ei")
+nodes/vertex/3/position = Vector2(100, 60)
+nodes/vertex/connections = PackedInt32Array(2, 0, 3, 2)
+nodes/start/0/position = Vector2(920, 240)
+nodes/start/2/node = SubResource("VisualShaderNodeTexture2DParameter_54isg")
+nodes/start/2/position = Vector2(140, 300)
+nodes/start/3/node = SubResource("VisualShaderNodeTexture_j5mm3")
+nodes/start/3/position = Vector2(545.39667, 256.45377)
+nodes/start/connections = PackedInt32Array(2, 0, 3, 2)

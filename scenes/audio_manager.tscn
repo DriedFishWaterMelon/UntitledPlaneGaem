@@ -1,26 +1,45 @@
-[gd_scene load_steps=7 format=3 uid="uid://c715a0gkvkqk7"]
+[gd_scene load_steps=10 format=3 uid="uid://c715a0gkvkqk7"]
 
 [ext_resource type="Script" uid="uid://bavjrmy7638bd" path="res://scenes/audio_manager.gd" id="1_aoitu"]
-[ext_resource type="AudioStream" uid="uid://cx8x8qa73mv0q" path="res://sfx/vulcan.wav" id="1_m6ggh"]
 [ext_resource type="AudioStream" uid="uid://bkgls1cddcw43" path="res://sfx/Voicy_Pilot Killed Indicator SFX.wav" id="2_aoitu"]
-[ext_resource type="AudioStream" uid="uid://bv2svqm1mlvxj" path="res://sfx/Voicy_Human Shield Break SFX.wav" id="3_njtn3"]
+[ext_resource type="AudioStream" uid="uid://da3f06qbkgti5" path="res://sfx/vulcan_edited.wav" id="2_njtn3"]
 [ext_resource type="AudioStream" uid="uid://cxwvjtx82ewf7" path="res://sfx/Voicy_Shield Battery SFX.wav" id="4_kq7b2"]
-[ext_resource type="AudioStream" uid="uid://dfrp8wy4o7icc" path="res://sfx/mao zedong propaganda music Red Sun in the Sky.wav" id="6_njtn3"]
+[ext_resource type="AudioStream" uid="uid://d0ybq6h5swgal" path="res://sfx/hit2.wav" id="4_njtn3"]
+[ext_resource type="AudioStream" uid="uid://d2mipbqjy05tw" path="res://sfx/Contact With You.mp3" id="6_ujhup"]
+[ext_resource type="AudioStream" uid="uid://b65ct087cmqrj" path="res://sfx/jet_idle_fly_real.wav" id="7_ujhup"]
+[ext_resource type="AudioStream" uid="uid://ct2vsao6cj2kc" path="res://sfx/jet_accel_real.wav" id="8_064dn"]
+[ext_resource type="AudioStream" uid="uid://co7b7xe4a5sf8" path="res://sfx/deaccel_wind_sound.wav" id="9_ic5jq"]
 
 [node name="AudioManager" type="Node2D"]
 script = ExtResource("1_aoitu")
 
 [node name="Vulcan" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("1_m6ggh")
+stream = ExtResource("2_njtn3")
+volume_db = 5.0
+mix_target = 1
 
 [node name="Kill" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_aoitu")
 
 [node name="Hit" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_njtn3")
+stream = ExtResource("4_njtn3")
+volume_db = -10.0
 
 [node name="Recharge" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_kq7b2")
+volume_db = -5.0
 
 [node name="Mao" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("6_njtn3")
+stream = ExtResource("6_ujhup")
+
+[node name="idle_fly" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_ujhup")
+volume_db = -15.0
+
+[node name="accel" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_064dn")
+volume_db = -15.0
+
+[node name="deaccel_wind" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_ic5jq")
+volume_db = -15.0

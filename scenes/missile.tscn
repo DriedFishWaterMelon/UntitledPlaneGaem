@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://y01wp7i8dxss"]
+[gd_scene load_steps=6 format=3 uid="uid://y01wp7i8dxss"]
 
 [ext_resource type="Script" uid="uid://bod1o5cfjmwad" path="res://scripts/missile.gd" id="1_cdnlh"]
+[ext_resource type="PackedScene" uid="uid://c6wtxqiq6lvjv" path="res://scenes/smoke.tscn" id="2_6cx5e"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_0uoyr"]
 top_radius = 0.2
@@ -20,6 +21,7 @@ mesh = SubResource("CylinderMesh_0uoyr")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 10.0
+one_shot = true
 
 [node name="Area3D" type="Area3D" parent="."]
 
@@ -30,6 +32,9 @@ shape = SubResource("BoxShape3D_bqn2q")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.0417885, -0.999126, 0, 0.999126, 0.0417885, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_jvt27")
+
+[node name="Node3D" parent="." instance=ExtResource("2_6cx5e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5809686)
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

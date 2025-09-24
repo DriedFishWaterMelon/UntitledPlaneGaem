@@ -41,8 +41,8 @@ func _physics_process(delta):
 	
 	
 	if missile_player_detection && missileTimer.is_stopped() :
-		pass
-		#fire_missile(target)
+		
+		fire_missile(target)
 	if gun_player_detection && gun_cooldown_timer.is_stopped():
 		fire_gun()
 	

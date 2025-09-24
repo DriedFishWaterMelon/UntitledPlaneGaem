@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://uu7dtcb1a578"]
+[gd_scene load_steps=13 format=3 uid="uid://uu7dtcb1a578"]
 
 [ext_resource type="Script" uid="uid://cuuyji6y5bc28" path="res://scripts/canvas_layer.gd" id="1_37rai"]
 [ext_resource type="Script" uid="uid://cibyue2draj2" path="res://scripts/control.gd" id="1_tg4cr"]
 [ext_resource type="Script" uid="uid://ch5xv5jov5bcu" path="res://scripts/control_2.gd" id="2_37rai"]
+[ext_resource type="Texture2D" uid="uid://o01nk323n6ko" path="res://assets/image/8-87448_vignette-png-sky.png" id="4_mg525"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_37rai"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -15,10 +16,17 @@ color = Color(1, 1, 1, 1)
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_ek3oe"]
 color = Color(1, 1, 1, 1)
 
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_kfwc7"]
+color = Color(0, 0, 0, 0)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_4a2ha"]
+color = Color(0.19921207, 0.42818603, 1, 1)
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kfwc7"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_mg525"]
-color = Color(0.02745098, 1, 1, 1)
+color = Color(0.258232, 0.80530083, 0.89273083, 1)
+thickness = 5
 
 [node name="CanvasLayer" type="CanvasLayer"]
 script = ExtResource("1_37rai")
@@ -53,6 +61,7 @@ offset_right = 95.0
 offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_colors/font_color = Color(0.078431375, 0.39215687, 0.003921569, 1)
 theme_override_font_sizes/font_size = 20
 text = "Speed: 0 "
 
@@ -69,6 +78,7 @@ offset_right = 238.0
 offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_colors/font_color = Color(0.0793862, 0.3914263, 0.00551872, 1)
 theme_override_font_sizes/font_size = 20
 text = "M61A1 Vulcan
 Round: 40/511"
@@ -117,6 +127,30 @@ offset_left = 1.0
 offset_top = 35.0
 offset_right = 461.0
 offset_bottom = 62.0
+theme_override_styles/background = SubResource("StyleBoxLine_kfwc7")
+theme_override_styles/fill = SubResource("StyleBoxLine_4a2ha")
+max_value = 3000.0
+
+[node name="Energy" type="ProgressBar" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -214.0
+offset_top = 135.0
+offset_right = 246.0
+offset_bottom = 162.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_styles/background = SubResource("StyleBoxEmpty_kfwc7")
 theme_override_styles/fill = SubResource("StyleBoxLine_mg525")
-max_value = 3000.0
+show_percentage = false
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_mg525")
