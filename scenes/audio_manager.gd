@@ -5,3 +5,4 @@ extends Node2D
 @onready var kill =$Kill
 @onready var hit = $Hit
 @onready var recharge = $Recharge
+@onready var mao = $Mao
