@@ -15,12 +15,14 @@ color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_ek3oe"]
 color = Color(1, 1, 1, 1)
+thickness = 5
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_kfwc7"]
 color = Color(0, 0, 0, 0)
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_4a2ha"]
 color = Color(0.19921207, 0.42818603, 1, 1)
+thickness = 5
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kfwc7"]
 
@@ -116,17 +118,26 @@ grow_vertical = 0
 text = "Reloading"
 
 [node name="HealthBar" type="ProgressBar" parent="."]
-offset_right = 460.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -230.0
+offset_right = 230.0
 offset_bottom = 27.0
+grow_horizontal = 2
 theme_override_styles/background = SubResource("StyleBoxEmpty_ek3oe")
 theme_override_styles/fill = SubResource("StyleBoxLine_ek3oe")
 max_value = 3000.0
 
 [node name="ShieldBar" type="ProgressBar" parent="."]
-offset_left = 1.0
-offset_top = 35.0
-offset_right = 461.0
-offset_bottom = 62.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -229.0
+offset_top = 39.0
+offset_right = 231.0
+offset_bottom = 66.0
+grow_horizontal = 2
 theme_override_styles/background = SubResource("StyleBoxLine_kfwc7")
 theme_override_styles/fill = SubResource("StyleBoxLine_4a2ha")
 max_value = 3000.0
@@ -175,6 +186,10 @@ texture = ExtResource("4_mg525")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -382.0
+offset_top = -195.0
+offset_right = 386.0
+offset_bottom = 237.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("4_mg525")
